@@ -13,7 +13,6 @@ use \App\Session\Login;
 Login::requireLogout();
 
 $alertaLogin = '';
-$alertaCadastro = '';
 
 if(isset($_POST['acao'])){
 

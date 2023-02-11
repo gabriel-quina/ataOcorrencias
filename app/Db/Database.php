@@ -55,12 +55,13 @@
             return $this->connection->lastInsertId();
         }
 
-        public function select($where = null, $order = null, $limit = null, $fields = '*'){
-            $where = strlen($where) ? 'WHERE '.$where : '';
+        public function select($innerJoin = null, $where = null,  $order = null, $limit = null, $fields = '*'){
+            $innerJoin = strlen($innerJoin) ? 'INNER JOIN '.$innerJoin : '';
+            $where = strlen($where) ? 'WHERE '.$where : '';            
             $order = strlen($order) ? 'ORDER BY '.$order : '';
             $limit = strlen($limit) ? 'LIMIT '.$limit : '';
             
-            $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$where.' '.$order.' '.$limit;
+            $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$innerJoin.' '.$where.' '.$order.' '.$limit;
 
             return $this->execute($query);
         }
@@ -70,8 +71,6 @@
             $fields = array_keys($values);
 
             $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$fields).'=? WHERE '.$where;
-            //echo $query;
-            //exit;
 
             $this->execute($query,array_values($values));
 

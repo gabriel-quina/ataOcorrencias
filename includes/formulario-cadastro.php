@@ -1,48 +1,45 @@
 <?php
 
-  $alertaLogin = strlen($alertaLogin) ? '<div class="alert alert-danger">'.$alertaLogin.'</div>' : '';
   $alertaCadastro = strlen($alertaCadastro) ? '<div class="alert alert-danger">'.$alertaCadastro.'</div>' : '';
-
+  
 ?>
+<div class="container my-3">
+<main>
+  <section>
+    <a href="index.php?page=usuario">
+        <button class="btn btn-success">Voltar</button>
+    </a>
+  </section>
 
-<main class="bg-light">
-  <div class="text-dark p-3">
-    <div class="row">
-      <div class="col-6">
-          <form method="post">
-
-                <h2>Cadastre-se</h2>
-
-                <?=$alertaCadastro?>
-
-                <div class="form-group">
-                  <label for="nome">Nome</label>
-                  <input type="text" name="nome" class="form-control" require>
-                </div>
-
-                
-                <div class="form-group">
-                  <label for="senha">Senha</label>
-                  <input type="password" name="senha" class="form-control" require>
-                </div>
-                
-                <div class="form-group">
-                  <label for="acesso">Nivel Acesso</label>
-                  <input type="text" name="acesso" class="form-control" require>
-                </div>
-
-                <div class="form-group mt-3">
-                  <button type="submit" name="acao" value="cadastrar" class="btn btn-primary">Cadastrar</button>
-                </div>
-
-          </form>
-      </div>
-      <div class="col-6">
-      </div>      
-    </div>
+  <h2 class="mt-3"><?=TITLE?></h2>
+  <div class="container">
+    <?=$alertaCadastro?>
   </div>
-</main>
+  <form method="post">
 
-<!--        
-          
--->
+       
+
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" name="nome" class="form-control <?= $_SERVER['PHP_SELF'] == '/editar.php' ? ' pe-none':''?>" value="<?=$obUsuario->nome?>" require>
+        </div>
+                        
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" name="senha" class="form-control" require>
+        </div>
+        
+        <div class="form-group">
+          <label for="acesso">Nivel Acesso</label>
+          <input type="text" name="nivelacesso" class="form-control" value="<?=$obUsuario->nivelacesso?>" require>
+        </div>
+
+        <div class="form-group mt-3">
+          <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+
+  </form>
+
+  
+</main>
+</div>

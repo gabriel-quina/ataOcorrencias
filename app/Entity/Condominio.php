@@ -55,13 +55,13 @@
             return (new Database($this->tablename))->delete('id = '.$this->id);
         }
 
-        public static function getCondominios($where = null, $order = null, $limit = null, $table = 'condominios'){
-            return (new Database($table))->select($where,$order,$limit)
+        public static function getCondominios($innerJoin = null, $where = null, $order = null, $limit = null, $table = 'condominios'){
+            return (new Database($table))->select($innerJoin,$where,$order,$limit)
                                          ->fetchAll(PDO::FETCH_CLASS,self::class);
         }
         
         public static function getCondominio($id, $table = 'condominios'){
-            return (new Database($table))->select('id = '.$id)
+            return (new Database($table))->select(null,'id = '.$id)
                                          ->fetchObject(self::class);
         }
 

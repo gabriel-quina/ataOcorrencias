@@ -60,6 +60,13 @@
             }
         }
 
+        public static function requireAcesso($acesso = null){
+            if($acesso <= intval($_SESSION['usuario']['nivelacesso'])){
+                header('location: index.php?status=erroracesso');
+                exit;
+            }
+        }
+
     }
 
 ?>

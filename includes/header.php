@@ -4,10 +4,6 @@
 
   $usuarioLogado = Login::getUsuarioLogado();
 
-  $usuario = $usuarioLogado ?
-              '<a href="logout.php" class="nav-link">| Logout |</a></div><div class="navbar-nav"><span class="navbar-text">Seja bem vindo <strong>'.$usuarioLogado['nome'].'</strong></span></div>':
-              '</div><div class="navbar-nav navbar-text">Visitante</div>';
-
 ?>
 
 <!doctype html>
@@ -20,6 +16,10 @@
     <link rel="preload" as="font" href="/fonts/bootstrap-icons.woff" type="font/woff2" crossorigin="anonymous">
     <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="css/bootstrap-icons.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="icon" href="img/cropped-flaticon-32x32.png" sizes="32x32" />
+    <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
+    <meta name="msapplication-TileImage" content="img/cropped-flaticon-270x270.png" />
   </head>
   <body class="bg-dark bg-gradient text-light">
       <header>
@@ -33,10 +33,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav me-auto">
-                <a class="nav-link active" aria-current="page" href="index.php?page=ata">Ata</a>
-                <a class="nav-link" href="index.php?page=condominio">Cadastro Condominios</a>
-                <a class="nav-link disabled" tabindex="-1" href="index.php?page=usuario">Cadastro Usuarios</a>
-                <!--<?=$usuario?>-->           
+                <a class="nav-link active" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
+                <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
+                <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
+                <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="logout.php">| Logout |</a>
+              </div>
+              <div class="navbar-nav" <?= $usuarioLogado == null ? 'hidden' : '' ?>>
+                <span class="navbar-text">Seja bem vindo <strong><?=$usuarioLogado['nome']?></strong></span>
+              </div>     
             </div>
           </div>
         </nav>

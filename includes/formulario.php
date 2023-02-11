@@ -30,16 +30,16 @@
             </div>
             </div>
             <div class="form-group">
-                <label for="">Ocorrencia</label><pre><textarea class="form-control" rows="6" name="ocorrencia"><?=$obOcorrencia->ocorrencia?></textarea></pre>
+                <label for="">Ocorrencia</label><pre><textarea class="form-control" rows="6" name="ocorrencia"><?= $obOcorrencia->ocorrencia ?></textarea></pre>
             </div>
             <div class="row">
             <div class="form-group col-6">
                 <label for="data_inicio">Data Inicio</label>
-                <input type="date" class="form-control" name="data_inicio" value="<?= $_SERVER['PHP_SELF'] == '/editar.php' ?$obOcorrencia->data_inicio : date('Y-m-d')?>">
+                <input type="date" class="form-control" name="data_inicio" value="<?= $_SERVER['PHP_SELF'] == '/editar.php' ? $obOcorrencia->data_inicio : date('Y-m-d') ?>">
             </div>
             <div class="form-group col-6">
                 <label for="data_fim">Data Final</label>
-                <input type="date" class="form-control" name="data_fim" value="<?=$_SERVER['PHP_SELF'] == '/editar.php' ?$obOcorrencia->data_fim : date('Y-m-d')?>">
+                <input type="date" class="form-control" name="data_fim" value="<?= $_SERVER['PHP_SELF'] == '/editar.php' ? $obOcorrencia->data_fim : date('Y-m-d') ?>">
             </div>
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-success">Enviar</button>

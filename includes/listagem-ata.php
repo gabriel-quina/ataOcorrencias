@@ -1,4 +1,7 @@
 <?php
+
+use App\Entity\Ocorrencia;
+
 date_default_timezone_set('America/Sao_Paulo');
 
 $mensagem = '';
@@ -8,7 +11,7 @@ if (isset($_GET['status'])) {
             $mensagem = '
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Ação executada com sucesso!</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
             </div>
             ';
             break;
@@ -17,24 +20,21 @@ if (isset($_GET['status'])) {
             $mensagem = '
             <div class="alert text-bg-danger alert-dismissible fade show" role="alert">
                 <strong>Ação não executada!</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
+            </div>
+            ';
+            break;
+
+        case "erroracesso":
+            $mensagem = '
+            <div class="alert text-bg-warning alert-dismissible fade show" role="alert">
+                <strong>Acesso não autorizado!</strong>
+                <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
             </div>
             ';
             break;
     }
 }
-
-$resultados = '';
-foreach ($ocorrencias as $ocorrencia) {
-    $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
-    $resultados .= '<div class="row mt-2 bg-primary-subtle border-primary-subtle rounded-start rounded-end"><div class="col-4 col-lg-6 d-flex align-items-center text-dark fw-bold text-uppercase">' . $ocorrencia->condominio . '</div><div class="col-3 col-lg-2 d-flex align-items-center justify-content-center"><span class="badge rounded-pill text-bg-secondary">Data inicio: ' . date('d/m', strtotime($ocorrencia->data_inicio)) . '</span></div><div class="col-3 col-lg-2 d-flex align-items-center justify-content-center"><span class="badge rounded-pill text-bg-secondary">Data final: ' . date('d/m', strtotime($ocorrencia->data_fim)) . '</span></div><div class="col-2 col-lg-2 d-flex align-items-center justify-content-center' . $status . ' rounded-end"><span class="badge">Situação<br>' . $ocorrencia->status . '</span></div></div><div class="row text-bg-light pb-2 rounded-start rounded-end"><div style="white-space: pre-wrap;" class="col-10 word-wrap text-break p-2"<p class="lh-sm fw-light">' . $ocorrencia->ocorrencia . '</p></div><div class="col-2 border-start border-2 my-2 d-flex align-content-center justify-content-evenly flex-wrap"><a href="editar.php?page=ata&id='. $ocorrencia->id .'"><button type="button" class="badge btn btn-primary my-2">Editar</button></a><a href="excluir.php?page=ata&id='.$ocorrencia->id.'"><button type="button" class="badge btn btn-danger my-2">Excluir</button></a></div><div class="col"><div class="row border-top border-2 mx-2"><!--<div class="col-2 col-lg-1 d-flex"><a class="link-dark" data-bs-toggle="collapse" href="#multiCollapseExample'. $ocorrencia->id .'" role="button" aria-expanded="false" aria-controls="multiCollapseExample'. $ocorrencia->id .'"><small><span class="badge bg-info p-1 rounded">Lido por:</span></small></a></div><div class="col-4 col-lg-2 d-flex justify-content-center flex-wrap"><div class="collapse multi-collapse" id="multiCollapseExample'. $ocorrencia->id .'"><div class="float-right"><span class="badge bg-secondary">Luiz</span> <span class="badge bg-secondary">Victor</span> <span class="badge bg-secondary">Matheus</span> <span class="badge bg-secondary">Mara</span> <span class="badge bg-secondary">Gustavo</span> <span class="badge bg-secondary">Alexandre</span></div></div></div>--></div></div></div>';
-}
-
-$resultados = strlen($resultados) ? $resultados : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
-                                                         <div class="col-12 d-flex justify-content-center">
-                                                            Nenhuma ocorrencia encontrada
-                                                         </div>
-                                                       </div>';
 
 $listacondominios = '';
 foreach ($condominios as $condominio) {
@@ -99,11 +99,11 @@ if (isset($_GET['situacao'])) {
                         </select>
                     </div>                    
                     <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
-                        <button type="submit" class="btn btn-primary lh-1">Aplicar Filtro</button>
+                        <button type="submit" class="btn btn-primary btn-sm lh-1">Aplicar Filtro</button>
                     </div>
                     <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
                         <a href="index.php?page=ata">    
-                            <div class="btn btn-light lh-1">Limpar Filtro</div>
+                            <div class="btn btn-light btn-sm lh-1">Limpar Filtro</div>
                         </a>
                     </div>
                 </div>
@@ -136,6 +136,38 @@ if (isset($_GET['situacao'])) {
         <section>
 
             <div class="container my-3">
+                <?php
+                foreach ($ocorrencias as $ocorrencia) {
+
+                    $leitores = '';                    
+                    $lida = false;
+
+                    $lidasConsulta = Ocorrencia::getOcorrenciasLidas('usuarios t2 ON t2.id = id_usuario',
+                    'id_ocorrencias = ' .$ocorrencia->id,
+                    null,
+                    null,
+                    'id_ocorrencias, id_usuario, nome, datetime'
+                    );
+
+                    foreach ($lidasConsulta as $lidaConsulta) {
+                        $leitores .= ' <span class="badge bg-secondary">'.$lidaConsulta->nome.'</span> ';
+                        if ($lidaConsulta->id_usuario == $_SESSION['usuario']['id']){
+                            $lida = true;
+                        }
+                    }
+
+                    $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
+                                                            
+                    include __DIR__. '/../includes/resultados.php';
+
+                }
+
+                $resultados = !empty($ocorrencias) ? '' : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
+                                                        <div class="col-12 d-flex justify-content-center">
+                                                            Nenhuma ocorrencia encontrada
+                                                        </div>
+                                                    </div>';
+                ?>
                 <?= $resultados ?>
             </div>
 
