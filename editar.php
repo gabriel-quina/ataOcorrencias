@@ -40,10 +40,11 @@
                 header('location: index.php?'.$_GET['page'].'status=error');
                 exit;
             }
-            if(isset($_POST['nome_condominio'],$_POST['cod_moni'])){
+            if(isset($_POST['nome_condominio'],$_POST['cod_moni'],$_POST['one_integracao'])){
 
                 $obCondominio->nome_condominio = $_POST['nome_condominio'];
                 $obCondominio->cod_moni = $_POST['cod_moni'];
+                $obCondominio->one_integracao = $_POST['one_integracao'];
                 $obCondominio->atualizar();
         
                 header('location: index.php?page=condominio&status=success');

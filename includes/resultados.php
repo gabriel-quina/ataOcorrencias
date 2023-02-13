@@ -28,7 +28,7 @@
     </div>
 </div>
 <div class="row text-bg-light pb-2 rounded-start rounded-end">
-    <div style="white-space: pre-wrap;" class="col-10 word-wrap text-break p-2" <p class="lh-sm fw-light"><?= $ocorrencia->ocorrencia ?></p>
+    <div style="white-space: pre-wrap;" class="col-10 word-wrap text-break p-2"><?= $ocorrencia->ocorrencia ?>
     </div>
     <div class="col-2 border-start border-2 my-2 d-flex align-content-center justify-content-evenly flex-wrap">
         <a href="editar.php?page=ata&id=<?= $ocorrencia->id ?>">

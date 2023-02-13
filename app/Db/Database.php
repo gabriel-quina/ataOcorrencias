@@ -9,7 +9,7 @@
 
         const HOST = 'localhost';
 
-        const NAME = 'Ata';
+        const NAME = 'Ata-teste';
         
         const USER = 'root';
 

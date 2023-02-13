@@ -15,7 +15,7 @@
 
         public $senha;
 
-        public $nivelacesso; 
+        public $nivelacesso;
 
         public function cadastrar(){
             $obDatabase = new Database($this->tablename);
@@ -33,7 +33,7 @@
             return (new Database($this->tablename))->update('id = '.$this->id,[
                                                             'nome'  => $this->nome,
                                                             'senha'  => $this->senha,
-                                                            'nivelacesso'  => $this->nivelacesso
+                                                            'nivelacesso'  => $this->nivelacesso,
                                                             ]);
         }
 
@@ -55,7 +55,5 @@
         }
 
     }
-
-
 
 ?>

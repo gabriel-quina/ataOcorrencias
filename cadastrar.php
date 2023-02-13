@@ -26,9 +26,10 @@
     switch ($_GET['page']) {
         case "condominio":
             $obCondominio = new Condominio;
-            if(isset($_POST['nome_condominio'],$_POST['cod_moni'])){
+            if(isset($_POST['nome_condominio'],$_POST['cod_moni'],$_POST['one_integracao'])){
                 $obCondominio->nome_condominio = $_POST['nome_condominio'];
                 $obCondominio->cod_moni = $_POST['cod_moni'];
+                $obCondominio->one_integracao = $_POST['one_integracao'];
                 $obCondominio->cadastrar();
                 
                 header('location: index.php?page=condominio&status=success');

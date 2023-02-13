@@ -25,7 +25,9 @@
          * E-mail 
          * @var string 
          */
-        public $cod_moni;
+        public $cod_moni;        
+
+        public $one_integracao; 
 
         /**
          * Metodo responsavel por cadastrar nova pessoa no banco
@@ -37,7 +39,8 @@
             //Inserir pessoa no banco
             $this->id = $obDatabase->insert([
                                     'nome_condominio'  => $this->nome_condominio,
-                                    'cod_moni'  => $this->cod_moni
+                                    'cod_moni'  => $this->cod_moni,
+                                    'one_integracao' => $this->one_integracao
                                     ]);
 
             //Retornar sucesso
@@ -47,7 +50,8 @@
         public function atualizar(){
             return (new Database($this->tablename))->update('id = '.$this->id,[
                                                             'nome_condominio'  => $this->nome_condominio,
-                                                            'cod_moni'  => $this->cod_moni
+                                                            'cod_moni'  => $this->cod_moni,
+                                                            'one_integracao' => $this->one_integracao
                                                             ]);
         }
 
