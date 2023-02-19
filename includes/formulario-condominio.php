@@ -2,9 +2,7 @@
     <main>
 
         <section>
-            <a href="index.php?page=condominio">
-                <button class="btn btn-success">Voltar</button>
-            </a>
+            <a href="index.php?page=condominio" class="btn btn-success">Voltar</a>
         </section>
         <h2 class="mt-3"><?=TITLE?></h2>
 

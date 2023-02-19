@@ -36,6 +36,14 @@ if (isset($_GET['status'])) {
     }
 }
 
+$resultados = !empty($ocorrencias)
+? '' 
+: '<div class="row mt-2 py-2 text-bg-info fw-bold"">
+    <div class="col-12 d-flex justify-content-center">
+        Nenhuma ocorrencia encontrada
+    </div>
+</div>';
+
 $listacondominios = '';
 foreach ($condominios as $condominio) {
     $active = '';
@@ -115,7 +123,8 @@ if (isset($_GET['situacao'])) {
                     </div>
                     <div class="form-group col-4 col-lg-2">
                         <label for="data_inicio">Data</label>
-                        <input type="date" class="form-control" name="data_busca" value="<?= isset($_GET['data_busca']) ? $_GET['data_busca'] : date('Y-m-d') ?>">
+                        <input type="date" class="form-control" name="data_busca"
+                        value="<?= isset($_GET['data_busca']) ? $_GET['data_busca'] : date('Y-m-d') ?>">
                     </div>
                 </div>
 
@@ -137,6 +146,7 @@ if (isset($_GET['situacao'])) {
 
             <div class="container my-3">
                 <?php
+                
                 foreach ($ocorrencias as $ocorrencia) {
 
                     $leitores = '';                    
@@ -158,15 +168,10 @@ if (isset($_GET['situacao'])) {
 
                     $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
                                                             
-                    include __DIR__. '/../includes/resultados.php';
+                    include __DIR__. '/../includes/resultados-ata.php';
 
                 }
 
-                $resultados = !empty($ocorrencias) ? '' : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
-                                                        <div class="col-12 d-flex justify-content-center">
-                                                            Nenhuma ocorrencia encontrada
-                                                        </div>
-                                                    </div>';
                 ?>
                 <?= $resultados ?>
             </div>

@@ -7,7 +7,7 @@
 ?>
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" style="scroll-behavior: auto">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,12 +20,24 @@
     <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
     <meta name="msapplication-TileImage" content="img/cropped-flaticon-270x270.png" />
+    <script>      
+      document.onreadystatechange = function () {
+        if (document.readyState == "complete") {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const myModal = new bootstrap.Modal(document.getElementById("modalCondominio"), { backdrop: 'static', keyboard: false });
+          if (urlParams.has('id') && urlParams.get('page') == 'condominio'){
+            myModal.toggle(myModal);
+          };
+        };
+      }
+    </script>
   </head>
   <body class="bg-dark bg-gradient text-light">
       <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" target="blanc" href="https://castsegjuizdefora.com.br/">
+            <a class="navbar-brand" target="_blank" href="https://castsegjuizdefora.com.br/">
               <img src="img/castseg.png" alt="" height="35">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
