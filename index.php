@@ -24,32 +24,24 @@
     $busca = filter_input(INPUT_GET, 'busca', FILTER_SANITIZE_STRING);
         
     // FILTRO CONDOMINIOS
-    $filtroCondominios = filter_input(INPUT_GET,'condominios',FILTER_SANITIZE_STRING);
+    $filtroCondominios = filter_input(INPUT_GET,'condominios',FILTER_SANITIZE_NUMBER_INT);
     $filtroCondominios = $filtroCondominios == 'Todos' ? null : $filtroCondominios;
 
     // FILTRO DATA
     $filtroData = filter_input(INPUT_GET,'data_busca',FILTER_SANITIZE_STRING);
 
     // FILTRO SITUAÇÃO
-    $filtroSituacao = filter_input(INPUT_GET,'situacao',FILTER_SANITIZE_STRING);
-    switch ($filtroSituacao) {
-        case "Pendente":
-            $filtroSituacao = 'status = "Pendente"';
-            break;
-        case "Resolvido":
-            $filtroSituacao = 'status = "Resolvido"';
-            break;
-        case "Todos":
-            $filtroSituacao = 'status != "Todos"';
-            break;
-        default:
-            $filtroSituacao = 'status = "Pendente"';
-    }
+    $filtroSituacao = match (filter_input(INPUT_GET,'situacao',FILTER_SANITIZE_STRING)) {
+        "Pendente" => 'status = "Pendente"',
+        "Resolvido" => 'status = "Resolvido"',
+        "Todos" => 'status != "Todos"',
+        default => 'status = "Pendente"'
+    };
 
     //CONDIÇÕES SQL
     $condicoes = [
         strlen($busca) ? 'ocorrencia LIKE "%'.str_replace(" ","%",$busca).'%"' : null,
-        strlen($filtroCondominios) ? 'condominio = "'.$filtroCondominios.'"' : null,
+        strlen($filtroCondominios) ? 'id_condominio = "'.$filtroCondominios.'"' : null,
         $filtroSituacao,
         strlen($filtroData) ? 'data_inicio <="'.$filtroData.'" AND data_fim >="'.$filtroData.'"' : null,
     ];
@@ -65,9 +57,15 @@
     // PAGINAÇÃO
     $obPagination = new Pagination($quantidadeOcorrencias, $_GET['p'] ?? 1, 10);
 
-    $ocorrencias = Ocorrencia::getOcorrencias(null,$where,null,$obPagination->getLimit());
+    $ocorrencias = Ocorrencia::getOcorrencias(
+        'INNER JOIN condominios AS t2 ON t1.id_condominio = t2.id',
+        $where,
+        null,
+        $obPagination->getLimit(),
+        't1.id, t1.ocorrencia, t1.data_inicio, t1.data_fim, t1.status, t1.id_condominio, t2.nome_condominio, t2.one_integracao, t2.cod_moni'
+    );
 
-    $usuarios = Usuario::getUsuarios(null,null,'nome',null);    
+    $usuarios = Usuario::getUsuarios(null,null,'nome',null); 
 
     $gets = http_build_query($_GET);
     

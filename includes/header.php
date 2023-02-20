@@ -20,19 +20,26 @@
     <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
     <meta name="msapplication-TileImage" content="img/cropped-flaticon-270x270.png" />
-    <script type="text/javascript">      
+    <script type="text/javascript">
       document.onreadystatechange = function () {
+
         if (document.readyState == "complete") {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
+        const queryString = window.location;
+        const urlParams = new URLSearchParams(queryString.search);
+        const urlCheck = queryString.pathname
         const myModal = new bootstrap.Modal(document.getElementById("modalCondominio"), { backdrop: 'static', keyboard: false });
-          if (urlParams.has('id') && urlParams.get('page') == 'condominio'){
+          if (
+            urlCheck == '/dev/index.php' &&
+            urlParams.has('id') && 
+            (urlParams.get('page') == 'condominio' || urlParams.get('page') == 'ata')
+             ){
             myModal.toggle(myModal);
           };
+          
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
         };
-      }
-      function resizeIframe(iframe) {
-        iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
       }
     </script>
   </head>
@@ -48,9 +55,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav me-auto">
-                <a class="nav-link active" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
-                <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
-                <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
+                <a class="nav-link <?= $_GET['page'] == 'ata' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
+                <a class="nav-link <?= $_GET['page'] == 'condominio' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
+                <a class="nav-link <?= $_GET['page'] == 'usuario' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
                 <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="logout.php">| Logout |</a>
               </div>
               <div class="navbar-nav" <?= $usuarioLogado == null ? 'hidden' : '' ?>>

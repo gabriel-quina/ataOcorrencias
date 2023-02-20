@@ -1,6 +1,6 @@
 <tr>
     <td>
-        <h6 id="condominioId<?=$condominio->id?>"><?= $condominio->nome_condominio ?></h6>
+        <h6 id="referenceId<?=$condominio->id?>"><?= $condominio->nome_condominio ?></h6>
     </td>
     <td><?= $one ?></td>
     <td><?= $condominio->cod_moni ?></td>

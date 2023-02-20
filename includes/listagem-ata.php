@@ -6,35 +6,29 @@ date_default_timezone_set('America/Sao_Paulo');
 
 $mensagem = '';
 if (isset($_GET['status'])) {
-    switch ($_GET['status']) {
-        case "success":
-            $mensagem = '
+    $mensagem = match ($_GET['status']) {
+      "success" => '
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Ação executada com sucesso!</strong>
                 <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
             </div>
-            ';
-            break;
-
-        case "error":
-            $mensagem = '
+            ',
+      "error" => '
             <div class="alert text-bg-danger alert-dismissible fade show" role="alert">
                 <strong>Ação não executada!</strong>
                 <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
             </div>
-            ';
-            break;
-
-        case "erroracesso":
-            $mensagem = '
+            ',
+      "erroracesso" => '
             <div class="alert text-bg-warning alert-dismissible fade show" role="alert">
                 <strong>Acesso não autorizado!</strong>
                 <a href="index.php?page=ata"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
             </div>
-            ';
-            break;
-    }
+            ',
+    };
 }
+
+$modalContent = '';
 
 $resultados = !empty($ocorrencias)
 ? '' 
@@ -48,9 +42,9 @@ $listacondominios = '';
 foreach ($condominios as $condominio) {
     $active = '';
     if (isset($_GET['condominios'])) {
-        $active = $_GET['condominios'] == $condominio->nome_condominio ? 'selected' : '';
+        $active = $_GET['condominios'] == $condominio->id ? 'selected' : '';
     }
-    $listacondominios .= '<option ' . $active . '>' . $condominio->nome_condominio . '</option>';
+    $listacondominios .= '<option value="'.$condominio->id.'"' . $active . '>' . $condominio->nome_condominio . '</option>';
 }
 
 unset($_GET['status']);
@@ -152,11 +146,12 @@ if (isset($_GET['situacao'])) {
                     $leitores = '';                    
                     $lida = false;
 
-                    $lidasConsulta = Ocorrencia::getOcorrenciasLidas('usuarios t2 ON t2.id = id_usuario',
-                    'id_ocorrencias = ' .$ocorrencia->id,
-                    null,
-                    null,
-                    'id_ocorrencias, id_usuario, nome, datetime'
+                    $lidasConsulta = Ocorrencia::getOcorrenciasLidas(
+                        'INNER JOIN usuarios t2 ON t2.id = id_usuario',
+                        'id_ocorrencias = ' .$ocorrencia->id,
+                        null,
+                        null,
+                        'id_ocorrencias, id_usuario, nome, datetime'
                     );
 
                     foreach ($lidasConsulta as $lidaConsulta) {
@@ -165,6 +160,14 @@ if (isset($_GET['situacao'])) {
                             $lida = true;
                         }
                     }
+
+                    if (isset($_GET['id']) && $ocorrencia->id_condominio == $_GET['id']) {
+                        $modalContent .= '
+                        <div class="h-100">
+                            <iframe id="iframe" class="w-100 h-100" style="display:block" src="'.$ocorrencia->one_integracao.'"></iframe>
+                        </div>                        
+                        ';
+                    };
 
                     $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
                                                             

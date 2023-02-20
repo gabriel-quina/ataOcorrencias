@@ -2,25 +2,20 @@
 
         $mensagem = '';
         if (isset($_GET['status'])) {
-            switch ($_GET['status']) {
-                case "success":
-                    $mensagem = '
+            $mensagem = match ($_GET['status']) {
+              "success" => '
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Ação executada com sucesso!</strong>
                         <a href="index.php?page=usuario"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
                     </div>
-                    ';
-                    break;
-
-                case "error":
-                    $mensagem = '
+                    ',
+              "error" => '
                     <div class="alert text-bg-danger alert-dismissible fade show" role="alert">
                         <strong>Ação não executada!</strong>
                         <a href="index.php?page=usuario"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></a>
                     </div>
-                    ';
-                    break;
-            }
+                    ',
+            };
         }
 
         $resultados = '';

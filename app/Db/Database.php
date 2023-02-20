@@ -56,7 +56,7 @@
         }
 
         public function select($innerJoin = null, $where = null,  $order = null, $limit = null, $fields = '*'){
-            $innerJoin = strlen($innerJoin) ? 'INNER JOIN '.$innerJoin : '';
+            $innerJoin = strlen($innerJoin) ? ' '.$innerJoin : '';
             $where = strlen($where) ? 'WHERE '.$where : '';            
             $order = strlen($order) ? 'ORDER BY '.$order : '';
             $limit = strlen($limit) ? 'LIMIT '.$limit : '';

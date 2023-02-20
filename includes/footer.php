@@ -15,4 +15,21 @@
       </footer>
     <script src="js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
+  <div class="modal fade" id="modalCondominio" tabindex="-1" aria-labelledby="modalCondominio" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content vh-100">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-dark" id="ToggleLabel">Plano B</h1>
+                    <a href="index.php?page=<?=$_GET['page']?>" class="btn btn-close"></a>
+                </div>
+                <div class="modal-body h-100">                    
+                    <?=  $modalContent ?>
+                </div>
+                <div class="modal-footer">
+                    <div class="h-100 p-3 overflow-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
 </html>

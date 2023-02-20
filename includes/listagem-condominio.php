@@ -79,22 +79,5 @@
                 </tbody>
             </table>
         </section>
-    </main>
-    <div class="modal fade" id="modalCondominio" tabindex="-1" aria-labelledby="modalCondominio" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content vh-100">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-dark" id="ToggleLabel">Plano B</h1>
-                    <a href="index.php?page=condominio#condominioId<?=$_GET['id']?>" class="btn btn-close"></a>
-                </div>
-                <div class="modal-body h-100">                    
-                    <?=  $modalContent ?>
-                </div>
-                <div class="modal-footer">
-                    <div class="h-100 p-3 overflow-auto">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    </main>    
+</div>

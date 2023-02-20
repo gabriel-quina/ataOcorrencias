@@ -1,12 +1,12 @@
-<div class="row mt-2 bg-primary-subtle border-primary-subtle rounded-start rounded-end">
+<div id="referenceid<?= $ocorrencia->id ?>" class="row mt-2 bg-primary-subtle border-primary-subtle rounded-start rounded-end">
     <div class="col-5 col-xl-6 column-gap-1 d-flex align-items-center ">
-        <span class="text-dark fw-bold text-uppercase">
-            <?= $ocorrencia->condominio ?>
-        </span>
-        <span <?= $lida ?: 'hidden' ?> class="badge text-bg-success rounded-pill">
+        <a class="link-dark fw-bold text-uppercase" href="index.php?page=ata&id=<?= $ocorrencia->id_condominio ?>#referenceid<?= $ocorrencia->id ?>">
+            <?= $ocorrencia->nome_condominio ?> | <em><?= $ocorrencia->cod_moni ?></em>
+        </a>
+        <span <?= $lida ?: 'hidden' ?> class="badge text-bg-success rounded-pill" data-bs-toggle="tooltip" data-bs-title="Ocorrencia lida">
             <i class="bi bi-check"></i>
         </span>
-        <a <?= !$lida ?: 'hidden' ?> class="link-dark badge bg-warning-subtle"            
+        <a <?= !$lida ?: 'hidden' ?> class="link-dark badge bg-warning-subtle" data-bs-toggle="tooltip" data-bs-title="Marcar como lida"            
             href="ler.php?id=<?= $ocorrencia->id ?>"
             <small>
                 <i class="bi bi-eye-fill"></i>
