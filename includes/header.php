@@ -20,7 +20,7 @@
     <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
     <meta name="msapplication-TileImage" content="img/cropped-flaticon-270x270.png" />
-    <script>      
+    <script type="text/javascript">      
       document.onreadystatechange = function () {
         if (document.readyState == "complete") {
         const queryString = window.location.search;
@@ -30,6 +30,9 @@
             myModal.toggle(myModal);
           };
         };
+      }
+      function resizeIframe(iframe) {
+        iframe.height = iframe.contentWindow.document.body.scrollHeight + "px";
       }
     </script>
   </head>

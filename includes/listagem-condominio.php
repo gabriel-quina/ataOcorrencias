@@ -52,20 +52,20 @@
                     <?php
 
                     foreach($condominios as $condominio){
-                    $one = $condominio->one_integracao == '' ?
-                        '' : 
-                        '<a href="index.php?page=condominio&id='.$condominio->id.'#condominioId'.$condominio->id.'"
-                        class="btn btn-outline-secondary m-1">
-                        <small>
-                        <i class="bi bi-arrow-right-square-fill"> ONE PORTARIA</i>
-                        </small>
-                        </a>
+                    $one = $condominio->one_integracao == ''
+                            ? ''
+                            : '<a href="index.php?page=condominio&id='.$condominio->id.'#condominioId'.$condominio->id.'"
+                                  class="btn btn-outline-secondary m-1">
+                                <small>
+                                <i class="bi bi-arrow-right-square-fill"> ONE PORTARIA</i>
+                                </small>
+                            </a>
                     ' ;
                     
                     if (isset($_GET['id']) && $condominio->id == $_GET['id']) {
                         $modalContent .= '
-                        <div class="w-100">
-                            <iframe class="vh-100 col-12" src="'.$condominio->one_integracao.'"></iframe>
+                        <div class="h-100">
+                            <iframe id="iframe" class="w-100 h-100" style="display:block" src="'.$condominio->one_integracao.'"></iframe>
                         </div>                        
                         ';
                     };
@@ -75,7 +75,7 @@
                     }
                     
                     ?>
-                    <?=$resultados?>                        
+                    <?= $resultados ?>
                 </tbody>
             </table>
         </section>
@@ -87,12 +87,12 @@
                     <h1 class="modal-title fs-5 text-dark" id="ToggleLabel">Plano B</h1>
                     <a href="index.php?page=condominio#condominioId<?=$_GET['id']?>" class="btn btn-close"></a>
                 </div>
-                <div class="modal-body">                    
+                <div class="modal-body h-100">                    
                     <?=  $modalContent ?>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quaerat unde cumque nulla exercitationem quas totam nihil incidunt quae doloribus aliquam ut deleniti itaque tempora soluta atque ullam, quisquam cum in maiores reprehenderit. Magni quasi, unde corrupti blanditiis ratione nam vitae? Ad voluptas molestiae, magni porro neque omnis repellat beatae, illo maiores reprehenderit accusamus. Accusantium eaque exercitationem dolorem possimus fuga maxime nemo officia at! Repudiandae placeat quis fugiat expedita harum cupiditate, aperiam doloremque laboriosam qui labore quo reiciendis laborum ducimus voluptates maxime! Culpa, nesciunt libero? Asperiores deserunt, soluta dolore dicta nemo sapiente cum fuga nihil voluptates amet tenetur fugit vitae?</p>   
                 </div>
                 <div class="modal-footer">
-
+                    <div class="h-100 p-3 overflow-auto">
+                    </div>
                 </div>
             </div>
         </div>
