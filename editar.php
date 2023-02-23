@@ -27,17 +27,16 @@
     $obUsuario = Usuario::getUsuarioPorId($_GET['id']);
 
     if(!isset($_GET['id']) or !is_numeric($_GET['id'])){
-        header('location: index.php?'.$_GET['page'].'status=error');
+        header('location: index.php?page='.$_GET['page'].'&status=error');
         exit;
     }
     
     include __DIR__. '/includes/header.php';
     switch ($_GET['page']) {
         case "condominio":
-            include __DIR__. '/includes/formulario-condominio.php';
-
+                        
             if(!$obCondominio instanceof Condominio){
-                header('location: index.php?'.$_GET['page'].'status=error');
+                header('location: index.php?page='.$_GET['page'].'&status=error');
                 exit;
             }
             if(isset($_POST['nome_condominio'],$_POST['cod_moni'],$_POST['one_integracao'])){
@@ -46,47 +45,48 @@
                 $obCondominio->cod_moni = $_POST['cod_moni'];
                 $obCondominio->one_integracao = $_POST['one_integracao'];
                 $obCondominio->atualizar();
-        
-                header('location: index.php?page=condominio&status=success');
+                
+                header('location: index.php?page='.$_GET['page'].'&status=success');
                 exit;
                 
             }
+            include __DIR__. '/includes/formulario-condominio.php';
             break;
         case "usuario":
-            include __DIR__. '/includes/formulario-cadastro.php';
-            
+
             if(!$obUsuario instanceof Usuario){
-                header('location: index.php?'.$_GET['page'].'status=error');
+                header('location: index.php?page='.$_GET['page'].'&status=error');
                 exit;
             }
             if(isset($_POST['nome'],$_POST['nivelacesso'])){
-
+                
                 $obUsuario->nome = $_POST['nome'];
                 if (strlen($_POST['senha'])){
-                $obUsuario->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+                    $obUsuario->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
                 }
                 $obUsuario->nivelacesso = $_POST['nivelacesso'];
                 $obUsuario->atualizar();
-                header('location: index.php?page=usuario&status=success'); 
+                header('location: index.php?page='.$_GET['page'].'&status=success'); 
                 exit;
             }
-
+            
+            include __DIR__. '/includes/formulario-cadastro.php';
             break;
         case "ata": 
+            
             if(!$obOcorrencia instanceof Ocorrencia){
-                header('location: index.php?'.$_GET['page'].'status=error');
+                header('location: index.php?page='.$_GET['page'].'&status=error');
                 exit;
             }
-            if(isset($_POST['condominio'],$_POST['ocorrencia'],$_POST['data_inicio'],$_POST['data_fim'],$_POST['statusOcorrencia'])){
+            if(isset($_POST['ocorrencia'],$_POST['data_inicio'],$_POST['data_fim'],$_POST['statusOcorrencia'])){
                                 
-                $obOcorrencia->condominio = $_POST['condominio'];
                 $obOcorrencia->ocorrencia = $_POST['ocorrencia'];
                 $obOcorrencia->data_inicio = $_POST['data_inicio'];
                 $obOcorrencia->data_fim = $_POST['data_fim'];
                 $obOcorrencia->status= $_POST['statusOcorrencia'];
                 $obOcorrencia->atualizar();
 
-                header('Location: index.php?page=ata&status=success');
+                header('Location: index.php?page='.$_GET['page'].'&status=success');
                 exit;
             }
             include __DIR__. '/includes/formulario.php';

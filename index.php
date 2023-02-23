@@ -65,6 +65,20 @@
         't1.id, t1.ocorrencia, t1.data_inicio, t1.data_fim, t1.status, t1.id_condominio, t2.nome_condominio, t2.one_integracao, t2.cod_moni'
     );
 
+    $notifica = Ocorrencia::getOcorrencias(
+        'INNER JOIN ocorrencias_lidas AS t2 ON t1.id != t2.id_ocorrencias
+         INNER JOIN usuarios as t3 ON t3.id != '.$_SESSION['usuario']['id'].'
+         INNER JOIN condominios AS t4 ON t1.id_condominio = t2.id',
+         null,
+         null,
+         null,
+         't1.id, t1.criado_em, t4.nome_condominio, t4.cod_moni'
+    );
+
+   /* echo '<pre>';
+        print_r($notifica);
+    echo '</pre>'; */
+    
     $usuarios = Usuario::getUsuarios(null,null,'nome',null); 
 
     $gets = http_build_query($_GET);

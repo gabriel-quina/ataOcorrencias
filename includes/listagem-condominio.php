@@ -78,6 +78,6 @@
                     <?= $resultados ?>
                 </tbody>
             </table>
-        </section>
+        </section>        
     </main>    
 </div>

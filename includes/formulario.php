@@ -1,10 +1,11 @@
 <?php
-        $listacondominios = '<select class="form-select" name="condominio">';
+        $listacondominios = '<select class="form-select" name="id_condominio">';
         foreach($condominios as $condominio){
-                $active = $obOcorrencia->condominio == $condominio->nome_condominio ? ' selected' : '';
-                $listacondominios .= '<option'.$active.'>'.$condominio->nome_condominio.'</option>';
+                $active = $obOcorrencia->id_condominio == $condominio->id ? ' selected' : '';
+                $listacondominios .= '<option value="'.$condominio->id.'"'.$active.'>'.$condominio->nome_condominio.'</option>';
             }
-        $listacondominios = $listacondominios.'</select>'
+        $listacondominios = $listacondominios.'</select>';
+
 ?>
 
 <div class="container my-3">
@@ -20,7 +21,7 @@
             <div class="row">
             <div class="form-group col-8">
                 <label for="">Condominio</label>
-                    <?= $_SERVER['PHP_SELF'] == '/editar.php' ? '<input type="text" class="form-control pe-none" name="condominio" value="'.$obOcorrencia->condominio.'">' : $listacondominios ?></div>
+                    <?= $_SERVER['PHP_SELF'] == '/dev/editar.php' ? '<input type="text" class="form-control pe-none" name="id_condominio" value="'.$obOcorrencia->nome_condominio.'">' : $listacondominios ?></div>
             <div class="form-group col-4">
                 <label for="">Status</label>
                 <select class="form-select" name="statusOcorrencia">
@@ -35,11 +36,17 @@
             <div class="row">
             <div class="form-group col-6">
                 <label for="data_inicio">Data Inicio</label>
-                <input type="date" class="form-control" name="data_inicio" value="<?= $_SERVER['PHP_SELF'] == '/editar.php' ? $obOcorrencia->data_inicio : date('Y-m-d') ?>">
+                <input type="date" class="form-control" name="data_inicio"
+                        <?= $_SERVER['PHP_SELF'] == '/dev/editar.php'
+                        ? ' value="'.$obOcorrencia->data_inicio.'" min="'.$obOcorrencia->data_inicio.'"' 
+                        : ' value="'.date('Y-m-d').'" min="'.date('Y-m-d').'"' ?>>
             </div>
             <div class="form-group col-6">
                 <label for="data_fim">Data Final</label>
-                <input type="date" class="form-control" name="data_fim" value="<?= $_SERVER['PHP_SELF'] == '/editar.php' ? $obOcorrencia->data_fim : date('Y-m-d') ?>">
+                <input type="date" class="form-control" name="data_fim"
+                        <?= $_SERVER['PHP_SELF'] == '/dev/editar.php'
+                        ? ' value="'.$obOcorrencia->data_fim.'" min="'.$obOcorrencia->data_inicio.'"' 
+                        : ' value="'.date('Y-m-d').'" min="'.date('Y-m-d').'"' ?>>
             </div>
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-success">Enviar</button>

@@ -35,32 +35,3 @@
     </div>
   </div>
 </main>
-
-<!--        
-          <form method="post">
-
-            <h2>Cadastre-se</h2>
-
-            //$alertaCadastro?>
-
-            <div class="form-group">
-              <label for="nome">Nome</label>
-              <input type="text" name="nome" class="form-control" require>
-            </div>
-
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" name="email" class="form-control" require>
-            </div>
-
-            <div class="form-group">
-              <label for="senha">Senha</label>
-              <input type="password" name="senha" class="form-control" require>
-            </div>
-
-            <div class="form-group">
-              <button type="submit" name="acao" value="cadastrar" class="btn btn-primary">Cadastrar</button>
-            </div>
-
-          </form>
--->

@@ -30,6 +30,8 @@ if (isset($_GET['status'])) {
 
 $modalContent = '';
 
+$toastNotifica = '';
+
 $resultados = !empty($ocorrencias)
 ? '' 
 : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
@@ -170,7 +172,7 @@ if (isset($_GET['situacao'])) {
                     };
 
                     $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
-                                                            
+
                     include __DIR__. '/../includes/resultados-ata.php';
 
                 }
@@ -190,5 +192,9 @@ if (isset($_GET['situacao'])) {
             </nav>
 
         </section>
+
+        <div aria-live="polite" aria-atomic="true" class="fixed-bottom">
+            <?= include __DIR__. '/../includes/notifica.php' ?>
+        </div>
 
     </main>

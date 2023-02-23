@@ -15,10 +15,7 @@
   <div class="container">
     <?=$alertaCadastro?>
   </div>
-  <form method="post">
-
-       
-
+  <form method="post"> 
         <div class="form-group">
           <label for="nome">Nome</label>
           <input type="text" name="nome" class="form-control <?= $_SERVER['PHP_SELF'] == '/editar.php' ? ' pe-none':''?>" value="<?=$obUsuario->nome?>" require>
@@ -37,9 +34,7 @@
         <div class="form-group mt-3">
           <button type="submit" class="btn btn-success">Enviar</button>
         </div>
-
   </form>
 
-  
 </main>
 </div>

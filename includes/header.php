@@ -3,6 +3,7 @@
   use \App\Session\Login;
 
   $usuarioLogado = Login::getUsuarioLogado();
+  $page = isset($_GET['page']) ? $_GET['page'] : '';
 
 ?>
 
@@ -38,6 +39,9 @@
           
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+        
+        const toastElList = document.querySelectorAll('.toast');
+        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { delay : 6000 }));
 
         };
       }
@@ -55,9 +59,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav me-auto">
-                <a class="nav-link <?= $_GET['page'] == 'ata' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
-                <a class="nav-link <?= $_GET['page'] == 'condominio' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
-                <a class="nav-link <?= $_GET['page'] == 'usuario' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
+                <a class="nav-link <?= $page == 'ata' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
+                <a class="nav-link <?= $page == 'condominio' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
+                <a class="nav-link <?= $page == 'usuario' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
                 <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="logout.php">| Logout |</a>
               </div>
               <div class="navbar-nav" <?= $usuarioLogado == null ? 'hidden' : '' ?>>

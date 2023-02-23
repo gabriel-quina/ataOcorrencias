@@ -22,15 +22,18 @@ if(isset($_POST['acao'])){
         }else{
         
         $obUsuario = new Usuario;
-        $obUsuario->nomeDeUsuario = $_POST['nome'];
+        $obUsuario->nome = $_POST['nome'];
         $obUsuario->senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-        $obUsuario->nivelAcesso = $_POST['acesso'];
+        $obUsuario->nivelacesso = $_POST['acesso'];
         $obUsuario->cadastrar();
 
         Login::login($obUsuario);
       }
+  }
 }
 
 include __DIR__.'/includes/header.php';
 include __DIR__.'/includes/formulario-cadastro.php';
 include __DIR__.'/includes/footer.php';
+
+?>

@@ -29,7 +29,9 @@
                 $this->connection = new PDO('mysql:host='.self::HOST.';dbname='.self::NAME,self::USER,self::PASS);
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             }catch( PDOException $e ){
-                die('ERROR: '.$e->getMessage());
+                include __DIR__. '/includes/header.php';
+                'ERROR: '.$e->getMessage();
+                include __DIR__. '/includes/footer.php';
             }
         }
 
@@ -39,7 +41,10 @@
                 $statement->execute($params);
                 return $statement;
             }catch( PDOException $e ){
-                die('ERROR: '.$e->getMessage());
+                include __DIR__ . '/../../includes/header.php';
+                include __DIR__ . '/../../includes/404.php';
+                'ERROR: '.$e->getMessage();
+                include __DIR__ . '/../../includes/footer.php';
             }
         }
 

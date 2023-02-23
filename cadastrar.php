@@ -59,8 +59,8 @@
             break;
         case "ata":
             $obOcorrencia = new Ocorrencia;
-            if(isset($_POST['condominio'],$_POST['ocorrencia'],$_POST['data_inicio'],$_POST['data_fim'],$_POST['statusOcorrencia'])){
-                $obOcorrencia->condominio = $_POST['condominio'];
+            if(isset($_POST['id_condominio'],$_POST['ocorrencia'],$_POST['data_inicio'],$_POST['data_fim'],$_POST['statusOcorrencia'])){
+                $obOcorrencia->id_condominio = $_POST['id_condominio'];
                 $obOcorrencia->ocorrencia = $_POST['ocorrencia'];
                 $obOcorrencia->data_inicio = $_POST['data_inicio'];
                 $obOcorrencia->data_fim = $_POST['data_fim'];

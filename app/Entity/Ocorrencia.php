@@ -19,7 +19,7 @@
          * Nome da pessoa 
          * @var string
          */        
-        public $condominio;
+        public $id_condominio;
 
         /**
          * E-mail 
@@ -50,7 +50,7 @@
             $obDatabase = new Database($this->tablename);
             //Inserir pessoa no banco
             $this->id = $obDatabase->insert([
-                                    'condominio'  => $this->condominio,
+                                    'id_condominio'  => $this->id_condominio,
                                     'ocorrencia'  => $this->ocorrencia,
                                     'criado_por'  => $_SESSION['usuario']['id'],
                                     'modificado_por'  => $_SESSION['usuario']['id'],
@@ -65,7 +65,7 @@
 
         public function atualizar(){
             return (new Database($this->tablename))->update('id = '.$this->id,[
-                                                    'condominio'  => $this->condominio,
+                                                    'id_condominio'  => $this->id_condominio,
                                                     'ocorrencia'  => $this->ocorrencia,
                                                     'modificado_por'  => $_SESSION['usuario']['id'],
                                                     'data_inicio'  => $this->data_inicio,
@@ -111,7 +111,13 @@
         }
         
         public static function getOcorrencia($id, $table = 'ocorrencias'){
-            return (new Database($table))->select(null,'id = '.$id)
+            return (new Database($table.' t1'))->select(
+                                                        'INNER JOIN condominios t2 ON t1.id_condominio = t2.id',
+                                                        't1.id = '.$id,
+                                                        null,
+                                                        null,
+                                                        't1.*, t2.nome_condominio'
+                                                        )
                                              ->fetchObject(self::class);
         }
 
