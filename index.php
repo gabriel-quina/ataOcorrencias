@@ -66,18 +66,26 @@
     );
 
     $notifica = Ocorrencia::getOcorrencias(
-        'INNER JOIN ocorrencias_lidas AS t2 ON t1.id != t2.id_ocorrencias
-         INNER JOIN usuarios as t3 ON t3.id != '.$_SESSION['usuario']['id'].'
-         INNER JOIN condominios AS t4 ON t1.id_condominio = t2.id',
-         null,
-         null,
-         null,
-         't1.id, t1.criado_em, t4.nome_condominio, t4.cod_moni'
+        'LEFT JOIN ocorrencias_lidas t2 ON t2.id_ocorrencias = t1.id
+         INNER JOIN condominios t3 ON t3.id = t1.id_condominio',
+        "t1.status = 'Pendente' ",         
+        "criado_em DESC",
+        null,
+        't1.id, t3.nome_condominio, t1.criado_em, t2.id_usuario, t2.id_ocorrencias'
     );
 
-   /* echo '<pre>';
-        print_r($notifica);
-    echo '</pre>'; */
+    $filtered = array_filter($notifica, function($item){ return $item->id_usuario === $_SESSION['usuario']['id'];});
+
+    foreach ($notifica as $key => $value) {
+        foreach ($filtered as $remove) {
+            if ($value->id === $remove->id) {
+                unset($notifica[$key]);
+            };
+        };
+    };
+    
+    $countNotifica = 0;
+    $countNotifica = count($notifica);
     
     $usuarios = Usuario::getUsuarios(null,null,'nome',null); 
 

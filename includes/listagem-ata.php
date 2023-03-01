@@ -193,8 +193,39 @@ if (isset($_GET['situacao'])) {
 
         </section>
 
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Ocorrencias não lidast</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                    <?php
+                    
+                    $i = 0;
+                    foreach ($notifica as $result) {
+                        if ($i < 5) {
+                            $notificaTime = Ocorrencia::convertNotifTime($result->criado_em,"0");
+                            include __DIR__. '/../includes/notifica-off.php';
+                        };
+                        $i++;
+                    };
+                    ?>
+            </div>
+        </div>
+
         <div aria-live="polite" aria-atomic="true" class="fixed-bottom">
-            <?= include __DIR__. '/../includes/notifica.php' ?>
+            <div class="toast-container bottom-0 end-0 p-3">
+                <?php                                        
+                    $i = 0;
+                    foreach ($notifica as $result) {
+                        if ($i < 5) {
+                            $notificaTime = Ocorrencia::convertNotifTime($result->criado_em,"0");
+                            include __DIR__. '/../includes/notifica.php';
+                        };
+                        $i++;
+                    };
+                ?>
+            </div>
         </div>
 
     </main>

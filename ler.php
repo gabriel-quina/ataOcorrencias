@@ -28,11 +28,6 @@
         header('location: index.php?page=ata&status=error');
         exit;
       }else{    
-       /* 
-        echo '<pre>';
-            print_r($obOcorrencia);
-        echo '</pre>';
-        exit; */ 
         Ocorrencia::ler($_GET['id'],$_SESSION['usuario']['id'],date('Y-m-d H:i:s'));
     }
 

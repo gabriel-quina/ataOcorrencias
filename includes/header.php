@@ -41,9 +41,17 @@
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
         
         const toastElList = document.querySelectorAll('.toast');
-        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { delay : 6000 }));
+        const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { delay : (toastElList.length * 2) * 1500 }));
 
+        const jsNotifica = <?= $countNotifica ?>;
+
+        console.log(jsNotifica);
+
+          toastList.forEach(element => {
+            element.show()
+          });
         };
+
       }
     </script>
   </head>
@@ -64,7 +72,13 @@
                 <a class="nav-link <?= $page == 'usuario' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
                 <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="logout.php">| Logout |</a>
               </div>
-              <div class="navbar-nav" <?= $usuarioLogado == null ? 'hidden' : '' ?>>
+              <div class="navbar-nav gap-3" <?= $usuarioLogado == null ? 'hidden' : '' ?>>
+                <button type="button" class="btn btn-primary position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                  Não Lidas
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      <?= $countNotifica ?>
+                    </span>
+                </button>
                 <span class="navbar-text">Seja bem vindo <strong><?=$usuarioLogado['nome']?></strong></span>
               </div>     
             </div>
