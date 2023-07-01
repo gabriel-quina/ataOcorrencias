@@ -28,9 +28,14 @@ if(isset($_POST['acao'])){
         $obUsuario->cadastrar();
 
         Login::login($obUsuario);
+        }
       }
 }
 
 include __DIR__.'/includes/header.php';
+
 include __DIR__.'/includes/formulario-cadastro.php';
+
 include __DIR__.'/includes/footer.php';
+
+?>
