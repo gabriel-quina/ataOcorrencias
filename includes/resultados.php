@@ -16,11 +16,11 @@
     <div class="col-5 col-xl-4 d-flex column-gap-1 align-items-center justify-content-center">
         <small>
             <span class="badge rounded-pill text-bg-secondary text-wrap">Data inicio:
-            <?= $ocorrencia->data_inicio ?></span>
+            <?= $data_inicio->format('d-m-Y') ?></span>
         </small>
         <small>
         <span class="badge rounded-pill text-bg-secondary text-wrap">Data final:
-            <?= $ocorrencia->data_fim ?></span>
+            <?= $data_fim->format('d-m-Y') ?></span>
         </small>
     </div>
     <div class="col-2 d-flex align-items-center justify-content-center <?= $status ?> rounded-end">

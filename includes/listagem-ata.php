@@ -157,7 +157,9 @@ if (isset($_GET['situacao'])) {
                     }
 
                     $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
-                                                            
+                    $data_inicio = date_create( $ocorrencia->data_inicio );
+                    $data_fim = date_create( $ocorrencia->data_fim );
+
                     include __DIR__. '/../includes/resultados.php';
 
                 }

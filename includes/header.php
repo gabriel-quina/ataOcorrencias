@@ -12,10 +12,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ATA Ocorrencias - Castseg</title>
-    <link rel="preload" as="font" href="/fonts/bootstrap-icons.woff2" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" as="font" href="/fonts/bootstrap-icons.woff" type="font/woff2" crossorigin="anonymous">
-    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link href="css/bootstrap-icons.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="preload" as="font" href="fonts/bootstrap-icons.woff2" type="font/woff2">
+    <link rel="preload" as="font" href="fonts/bootstrap-icons.woff" type="font/woff2">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link rel="icon" href="img/cropped-flaticon-32x32.png" sizes="32x32" />
     <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
