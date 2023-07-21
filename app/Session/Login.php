@@ -2,7 +2,7 @@
     
     namespace App\Session;
 
-    class Login{
+    class Login {
 
         private static function init(){
             if(session_status() !== PHP_SESSION_ACTIVE){

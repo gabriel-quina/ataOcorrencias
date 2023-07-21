@@ -1,18 +1,24 @@
 <?php
 
-    //#composer require __DIR__. '/vendor/autoload.php'
+    require __DIR__. '/vendor/autoload.php';
+
+    /*
     require __DIR__. '/app/Entity/Ocorrencia.php';
     require __DIR__. '/app/Entity/Condominio.php';
     require __DIR__. '/app/Entity/Usuario.php';
     require __DIR__. '/app/Db/Database.php';
     require __DIR__. '/app/Db/Pagination.php';
     require __DIR__. '/app/Session/Login.php';
+    */
 
     use \App\Entity\Ocorrencia;
     use \App\Entity\Condominio;
     use \App\Entity\Usuario;
     use \App\Db\Pagination;
     use \App\Session\Login;
+    
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();    
 
     Login::requireLogin();
 

@@ -1,11 +1,14 @@
 <?php
 
-    //#composer require __DIR__. '/vendor/autoload.php'
+    require __DIR__. '/vendor/autoload.php';
+
+    /*
     require __DIR__. '/app/Entity/Ocorrencia.php';
     require __DIR__. '/app/Entity/Condominio.php';
     require __DIR__. '/app/Entity/Usuario.php';
     require __DIR__. '/app/Db/Database.php';
     require __DIR__. '/app/Session/Login.php';
+    */
 
     define('TITLE','Cadastrar');
 

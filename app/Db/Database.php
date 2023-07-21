@@ -4,20 +4,17 @@
 
     use \PDO;
     use \PDOException;
+    use \Dotenv;
 
     class Database{
-
-        const HOST = 'localhost';
-
-        const NAME = 'Ata-teste';
-        
-        const USER = 'root';
-
-        const PASS = '';
 
         private $table;
 
         private $connection;
+
+        private $dotenv;
+
+        public $errorDB;
 
         public function __construct($table = null){
             $this->table = $table;
@@ -26,10 +23,11 @@
 
         private function setConnection(){
             try{
-                $this->connection = new PDO('mysql:host='.self::HOST.';dbname='.self::NAME,self::USER,self::PASS);
+                $this->connection = new PDO('mysql:host='.$_ENV['DB_HOST'].';dbname='.$_ENV['DB_NAME'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD']);
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             }catch( PDOException $e ){
-                die('ERROR: '.$e->getMessage());
+                die('ERROR: '.$e->getCode().
+                            '<p>'.$e->getMessage().'</p>');
             }
         }
 
@@ -39,7 +37,8 @@
                 $statement->execute($params);
                 return $statement;
             }catch( PDOException $e ){
-                die('ERROR: '.$e->getMessage());
+                die('ERROR: '.$e->getCode().
+                            '<p>'.$e->getMessage().'</p>');
             }
         }
 
