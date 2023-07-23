@@ -1,5 +1,5 @@
 <div id="referenceid<?= $ocorrencia->id ?>" class="row mt-2 bg-primary-subtle border-primary-subtle rounded-start rounded-end">
-    <div class="col-5 col-xl-6 column-gap-1 d-flex align-items-center ">
+  <div class="col-5 col-xl-6 column-gap-1 d-flex align-items-center ">
         <a class="link-dark fw-bold text-uppercase" href="index.php?page=ata&id=<?= $ocorrencia->id_condominio ?>#referenceid<?= $ocorrencia->id ?>">
             <?= $ocorrencia->nome_condominio ?> | <em><?= $ocorrencia->cod_moni ?></em>
         </a>
@@ -25,7 +25,7 @@
     </div>
     <div class="col-2 d-flex align-items-center justify-content-center <?= $status ?> rounded-end">
         <span class="badge">Situação<br><?= $ocorrencia->status ?></span>
-    </div>
+  </div>
 </div>
 <div class="row text-bg-light pb-2 rounded-start rounded-end">
     <div style="white-space: pre-wrap;" class="col-10 word-wrap text-break p-2"><?= $ocorrencia->ocorrencia ?>
@@ -41,20 +41,16 @@
     <div class="col ">
         <div class="row border-top border-2 mx-2">
             <div class="col-2 col-lg-1 d-flex">
-                <a class="link-dark"
-                   data-bs-toggle="collapse" href="#multiCollapseExample<?= $ocorrencia->id ?>"
-                   role="button" aria-expanded="false" aria-controls="multiCollapseExample<?= $ocorrencia->id ?>">
+                <a class="link-dark">
                     <small>
-                        <span class="badge bg-info p-1 rounded text-dark">Lido por:</span>
+                        <span class="badge p-1 rounded text-dark">Lido por:</span>
                     </small>
                 </a>
             </div>
             <div class="col-4 col-lg-2 d-flex me-auto align-content-center justify-content-center flex-wrap">
-                <div class="collapse multi-collapse" id="multiCollapseExample<?= $ocorrencia->id ?>">
-                    <small>    
-                        <div class="float-right"><?= $leitores != '' ? $leitores : '<span class="badge bg-secondary flex-wrap">NENHUMA LEITURA REGISTRADA</span>' ?></div>
-                    </small>
-                </div>
+              <small>    
+                <div class="float-right"><?= $leitores != '' ? $leitores : '<span class="badge bg-secondary flex-wrap">NENHUMA LEITURA REGISTRADA</span>' ?></div>
+              </small>
             </div>
         </div>
         <div class="col ">

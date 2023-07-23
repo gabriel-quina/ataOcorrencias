@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR" class="bg-light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <link rel="preload" as="font" href="fonts/bootstrap-icons.woff2" type="font/woff2">
+  <link rel="preload" as="font" href="fonts/bootstrap-icons.woff" type="font/woff2">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet" crossorigin="anonymous">
+  <link rel="icon" href="img/cropped-flaticon-32x32.png" sizes="32x32" />
+  <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
+  <meta name="msapplication-TileImage" content="img/cropped-flaticon-270x270.png" />
+  <script type="text/javascript">
+    document.onreadystatechange = function () {
+
+      if (document.readyState == "complete") {
+        const queryString = window.location;
+        const urlParams = new URLSearchParams(queryString.search);
+        const urlCheck = queryString.pathname;
+        console.log(urlCheck);
+        const myModal = new bootstrap.Modal(document.getElementById("modalCondominio"), { backdrop: 'static', keyboard: false });
+        if (
+          urlCheck.match('index.php') != null &&
+          urlParams.has('id') &&
+          (urlParams.get('page') == 'condominio' || urlParams.get('page') == 'ata')
+        ) {
+          myModal.toggle(myModal);
+        };
+
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+      };
+    }
+  </script>
+</head>
+
+<body class="bg-dark bg-gradient text-light position-relative" id="response">
+
+  {{header}}
+
+  {{content}}
+
+  {{footer}}
+
+  <button id="ajaxBtn">Request</button>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/ajax.js"></script>
+
+</body>
+
+{{modal}}
+
+</html>

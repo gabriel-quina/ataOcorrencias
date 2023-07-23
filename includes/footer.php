@@ -1,6 +1,6 @@
        
     </div> <!-- CLOSE CONTAINER -->
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 bg-light border-top">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 bg-light border-top position-absolute">
         <div class="col-md-4 d-flex align-items-center">
             <a class="navbar-brand mx-2" target="_blank" href="https://castsegjuizdefora.com.br/">
             <img src="img/castseg.png" alt="" height="35">

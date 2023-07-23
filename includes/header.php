@@ -1,13 +1,13 @@
 <?php
 
-  use \App\Session\Login;
+use App\Session\Login;
 
-  $usuarioLogado = Login::getUsuarioLogado();
+$usuarioLogado = Login::getUsuarioLogado();
 
 ?>
 
 <!doctype html>
-<html lang="pt-BR" style="scroll-behavior: auto">
+<html lang="pt-BR" class="bg-light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +16,7 @@
     <link rel="preload" as="font" href="fonts/bootstrap-icons.woff" type="font/woff2">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="icon" href="img/cropped-flaticon-32x32.png" sizes="32x32" />
     <link rel="icon" href="img/cropped-flaticon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="img/cropped-flaticon-180x180.png" />
@@ -44,7 +45,7 @@
       }
     </script>
   </head>
-  <body class="bg-dark bg-gradient text-light">
+  <body class="bg-dark bg-gradient text-light position-relative">
       <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
@@ -56,9 +57,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav me-auto">
-                <a class="nav-link <?= $_GET['page'] == 'ata' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
-                <a class="nav-link <?= $_GET['page'] == 'condominio' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
-                <a class="nav-link <?= $_GET['page'] == 'usuario' ? 'active bg-danger-subtle rounded' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
+                <a class="nav-link <?= $_GET['page'] == 'ata' ? 'active' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> aria-current="page" href="index.php?page=ata">Ata</a>
+                <a class="nav-link <?= $_GET['page'] == 'condominio' ? 'active' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=condominio">Cadastro Condominios</a>
+                <a class="nav-link <?= $_GET['page'] == 'usuario' ? 'active' : '' ?>" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="index.php?page=usuario">Cadastro Usuarios</a>
                 <a class="nav-link" <?= $usuarioLogado == null ? 'hidden' : '' ?> href="logout.php">| Logout |</a>
               </div>
               <div class="navbar-nav" <?= $usuarioLogado == null ? 'hidden' : '' ?>>
