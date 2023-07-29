@@ -9,10 +9,12 @@ class Home extends Page
     public static function getHome()
     {
 
-        $content = View::render('/home', [
-          'modal' => '',
+        $content = View::render('home', [
+          'title' => 'Título Home',
+          'modal' => ' '
         ]);
 
+        // Retorna a view da página
         return parent::getPage('Intranet - Castseg', $content);
     }
 }
