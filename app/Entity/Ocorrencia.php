@@ -14,31 +14,59 @@
          * @var integer 
           */
         public $id;
+
+        /**
+         * ID Condominio
+         * @var string
+         */      
+        public $id_condominio;
         
         /**
-         * Nome da pessoa 
+         * Nome Condominio
          * @var string
          */        
         public $condominio;
 
         /**
-         * E-mail 
+         * Corpo do texto da ocorrencia
          * @var string 
          */
         public $ocorrencia;
 
         /**
-         * Data de inicio
+         * Tipo da ocorrencia [Técnica, informativa] 
          * @var string 
          */
-        public $data_inicio;
+        public $tipo_ocorrencia;
 
         /**
-         * Data final
+         * Usuario que fez a criação
          * @var string 
          */
-        public $data_fim;
+        public $criado_por;
+        
+        /**
+         * Data de criação
+         * @var string 
+         */
+        public $criado_em;
 
+        /**
+         * Usuario que fez a modificação
+         * @var string 
+         */
+        public $modificado_por;
+
+        /**
+         * Data de modificação
+         * @var string 
+         */
+        public $modificado_em;
+
+        /**
+         * Situação da Ocorrencia
+         * @var string 
+         */
         public $status;
 
         /**
@@ -50,12 +78,12 @@
             $obDatabase = new Database($this->tablename);
             //Inserir pessoa no banco
             $this->id = $obDatabase->insert([
+                                    'id_condominio' => $this->id_condominio,
                                     'condominio'  => $this->condominio,
                                     'ocorrencia'  => $this->ocorrencia,
+                                    'tipo_ocorrencia' => $this->tipo_ocorrencia,
                                     'criado_por'  => $_SESSION['usuario']['id'],
                                     'modificado_por'  => $_SESSION['usuario']['id'],
-                                    'data_inicio'  => $this->data_inicio,
-                                    'data_fim'  => $this->data_fim,
                                     'status' => $this->status
                                     ]);
 
@@ -65,23 +93,20 @@
 
         public function atualizar(){
             return (new Database($this->tablename))->update('id = '.$this->id,[
+                                                    'id_condominio' => $this->id_condominio,
                                                     'condominio'  => $this->condominio,
                                                     'ocorrencia'  => $this->ocorrencia,
+                                                    'tipo_ocorrencia' => $this->tipo_ocorrencia,
                                                     'modificado_por'  => $_SESSION['usuario']['id'],
-                                                    'data_inicio'  => $this->data_inicio,
-                                                    'data_fim'  => $this->data_fim,
                                                     'status' => $this->status
                                                     ]);
         }
 
-
-
         public function excluir(){
             return (new Database($this->tablename))->delete('id = '.$this->id);
         }
-
+        
         public static function ler($id, $usuario, $date){
-            //definir ID
             $obDatabase = new Database('ocorrencias_lidas');
             //Inserir no banco
             $obDatabase->insert([
@@ -93,6 +118,18 @@
             //Retornar sucesso
             return true;
         }
+
+        public static function resolver($id, $status){
+            $obDatabase = new Database('ocorrencias');
+            //Update no banco
+            $obDatabase->update('id = '.$id,[
+                        'status'  => $status
+                        ]);
+
+            //Retornar sucesso
+            return true;
+        }
+        
         
         public static function getOcorrenciasLidas($innerJoin = null, $where = null, $order = null, $limit = null, $fields = '*', $table = 'ocorrencias_lidas'){
             return (new Database($table))->select($innerJoin,$where,$order,$limit,$fields)

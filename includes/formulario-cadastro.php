@@ -11,13 +11,11 @@
     </a>
   </section>
 
-  <h2 class="mt-3"><?=TITLE?></h2>
+  <h2 class="mt-3"></h2>
   <div class="container">
     <?=$alertaCadastro?>
   </div>
   <form method="post">
-
-       
 
         <div class="form-group">
           <label for="nome">Nome</label>

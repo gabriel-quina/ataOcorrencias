@@ -1,6 +1,6 @@
 <?php
 
-use App\Entity\Ocorrencia;
+use App\Entity\Autorizacoes;
 
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -58,21 +58,18 @@ foreach ($paginas as $key => $pagina) {
                 </li>';
 }
 
-if (isset($_GET['situacao'])) {
-    $situacao = $_GET['situacao'];
-}
-
 ?>
 
 <div class="container mt-3">
 
     <main>
+
         <section>
             <?= $mensagem ?>
         </section>
 
         <section>
-            <a href="cadastrar.php?page=ata">
+            <a href="cadastrar.php?page=autorizacoes">
                 <button class="btn btn-success mb-3">Novo Cadastro</button>
             </a>
         </section>
@@ -89,43 +86,27 @@ if (isset($_GET['situacao'])) {
                             <?= $listacondominios ?>
                         </select>
                     </div>
-                    <div class="form-group col-4 col-lg-4">
-                        <label>Situação</label>
-                        <select class="form-select" name="situacao">
-                            <option <?= $filtroSituacao == 'status = "Pendente"' ? 'selected' : '' ?>>Pendente</option>                           
-                            <option <?= $filtroSituacao == 'status = "Resolvido"' ? 'selected' : '' ?>>Resolvido</option>
-                            <option <?= $filtroSituacao == 'status != "Todos"' ? 'selected' : '' ?>>Todos</option>
-                        </select>
-                    </div>                    
                     <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
                         <button type="submit" class="btn btn-primary btn-sm lh-1">Aplicar Filtro</button>
                     </div>
                     <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
-                        <a href="index.php?page=ata">    
+                        <a href="index.php?page=autorizacoes">    
                             <div class="btn btn-light btn-sm lh-1">Limpar Filtro</div>
                         </a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-4 col-lg-6">
-                        <label for="">Buscar Ocorrencia</label>
+                    <div class="form-group col-8 col-lg-10">
+                        <label for="">Buscar Autorizacão</label>
                         <input type="text" name="busca" class="form-control" value="<?= $busca ?>">
-                    </div>
-                    <div class="form-group col-4 col-lg-4">
-                        <label>Tipo Ocorrencia</label>
-                        <select class="form-select" name="tipo_ocorrencia">
-                            <option <?= $filtroTipoOcorrencia == 'tipo_ocorrencia = "Técnica"' ? 'selected' : '' ?>>Técnica</option>                           
-                            <option <?= $filtroTipoOcorrencia == 'tipo_ocorrencia = "Informativa"' ? 'selected' : '' ?>>Informativa</option>
-                            <option <?= $filtroTipoOcorrencia == 'tipo_ocorrencia != "Todos"' ? 'selected' : '' ?>>Todos</option>
-                        </select>
                     </div>
                     <div class="form-group col-4 col-lg-2">
                         <label for="data_inicio">Data</label>
-                        <input type="date" class="form-control" name="data_busca" value="<?= isset($_GET['data_busca']) ? $_GET['data_busca'] : null ?>">
+                        <input type="date" class="form-control" name="data_busca" value="<?= isset($_GET['data_busca']) ? $_GET['data_busca'] : date('Y-m-d') ?>">
                     </div>
                 </div>
-
+                <input type="hidden" name="page" value="autorizacoes">
             </form>
 
         </section>
@@ -144,38 +125,18 @@ if (isset($_GET['situacao'])) {
 
             <div class="container my-3">
                 <?php
-                foreach ($ocorrencias as $ocorrencia) {
-
-                    $leitores = '';                    
-                    $lida = false;
-
-                    $lidasConsulta = Ocorrencia::getOcorrenciasLidas('INNER JOIN usuarios t2 ON t2.id = id_usuario',
-                    'id_ocorrencias = ' .$ocorrencia->id,
-                    null,
-                    null,
-                    'id_ocorrencias, id_usuario, nome, datetime'
-                    );
-
-                    foreach ($lidasConsulta as $lidaConsulta) {
-                        $leitores .= ' <span class="badge bg-secondary">'.ucwords($lidaConsulta->nome).'</span> ';
-                        if ($lidaConsulta->id_usuario == $_SESSION['usuario']['id']){
-                            $lida = true;
-                        }
-                    }
-
-                    $status = $ocorrencia->status == 'Resolvido' ? ' text-bg-success' : ' text-bg-danger';
-                    $criado_em = date_create( $ocorrencia->criado_em );
-                    $modificado_em = date_create( $ocorrencia->modificado_em );
+                foreach ($autorizacoes as $autorizacao) {
+                    $data_inicio = date_create( $autorizacao->data_inicio );
+                    $data_fim = date_create( $autorizacao->data_fim );
                                                             
-                    include __DIR__. '/../includes/resultados.php';
-
+                    include __DIR__. '/../includes/resultados-autorizacao.php';
                 }
 
-                $resultados = !empty($ocorrencias) ? '' : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
-                                                            <div class="col-12 d-flex justify-content-center">
-                                                                Nenhuma ocorrencia encontrada
-                                                            </div>
-                                                        </div>';
+                $resultados = !empty($autorizacoes) ? '' : '<div class="row mt-2 py-2 text-bg-info fw-bold"">
+                                                        <div class="col-12 d-flex justify-content-center">
+                                                            Nenhuma autorização encontrada
+                                                        </div>
+                                                    </div>';
                 ?>
                 <?= $resultados ?>
             </div>
@@ -186,7 +147,7 @@ if (isset($_GET['situacao'])) {
 
             <nav aria-label="Page navigation">
                 <ul class="pagination pagination-sm justify-content-center">
-                    <?= $paginacao ?>
+                  <?= $paginacao ?>
                 </ul>
             </nav>
 

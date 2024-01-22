@@ -9,8 +9,6 @@
   use App\Db\Pagination;
   use App\Session\Login;
 
-  date_default_timezone_set('America/Sao_Paulo');
-
   $mensagem = '';
   if (isset($_GET['status'])) {
     switch ($_GET['status']) {
@@ -33,17 +31,6 @@
         break;
     }
   }    
-
-  $listacondominios = '';
-  foreach ($condominios as $condominio) {
-      $active = '';
-      if (isset($_GET['condominios'])) {
-          $active = $_GET['condominios'] == $condominio->nome_condominio ? 'selected' : '';
-      }
-      $listacondominios .= '<option ' . $active . '>' . $condominio->nome_condominio . '</option>';
-  }
-
-  $gets = http_build_query($_GET);
 ?>
 <div class="container my-3">
 <main>
@@ -57,49 +44,14 @@
         </a>
     </section>
 
-    <section>
-        <form method="get">
-
-          <div class="row">
-              <input type="hidden" name="page" value="condominio">
-              <div class="form-group col-4 col-lg-6">
-                  <label for="">Filtrar Condominio</label>
-                  <select class="form-select" name="condominios">
-                      <option>Todos</option>
-                      <?= $listacondominios ?>
-                  </select>
-              </div>
-              <div class="form-group col-4 col-lg-4">
-                  <label>Tipo Atendimento</label>
-                  <select class="form-select" name="tipo_atendimento">
-                      <option <?= $filtroTipoAtendimento == 'tipoatendimento = "Portaria 24 Horas"' ? 'selected' : '' ?>>24 Horas</option>                           
-                      <option <?= $filtroTipoAtendimento == 'tipoatendimento = "Portaria Assistida"' ? 'selected' : '' ?>>Assistida</option>
-                      <option <?= $filtroTipoAtendimento == 'tipoatendimento = "Portaria Hibrida"' ? 'selected' : '' ?>>Hibrida</option>
-                      <option <?= $filtroTipoAtendimento == 'tipoatendimento != "Todos"' ? 'selected' : ''; ?>>Todos</option>
-                  </select>
-              </div>                    
-              <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
-                  <button type="submit" class="btn btn-primary btn-sm lh-1">Aplicar Filtro</button>
-              </div>
-              <div class="col-2 col-lg-1 d-flex align-items-end justify-content-center">
-                  <a href="index.php?page=condominio">    
-                      <div class="btn btn-light btn-sm lh-1">Limpar Filtro</div>
-                  </a>
-              </div>
-          </div>
-
-        </form>
-    </section>
-
     <section class="mt-3">
         <?php
 
           foreach($condominios as $condominio){
-            $content = View::render('resultados-condominio', [
+            $content = View::render('dev-resultados-condominio', [
               'ID_CONDOMINIO'       => $condominio->id,
               'NOME_DO_CONDOMINIO'  => $condominio->nome_condominio,
-              'ENDERECO'            => $condominio->endereco,
-              'COD_CONDOMINIO'      => $condominio->cod_moni,
+              'COD_CONDOMINIO'      => 'Codigo Interno: '.$condominio->cod_moni,
               'COD_APP'             => !empty($condominio->cod_app) ?
                                         'Codigo APP: '.$condominio->cod_app :
                                         '',
@@ -111,7 +63,8 @@
                                         target="_blank">
                                         <img src="img/one-32x32.png" alt="" class="object-fit-contain w-25"> ONE Portaria</img>
                                         </a>' :
-                                        ''
+                                        '',
+              'EQUIPAMENTOS'        => ''
             ]);
             echo $content;
           };

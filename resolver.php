@@ -20,15 +20,15 @@
     }
 
     $where = '';
-    $where .= 'id_ocorrencias = '. $_GET['id'] .' AND id_usuario = '.$_SESSION['usuario']['id'].'';
+    $where .= 'id = '. $_GET['id'];
 
-    $obOcorrencia = Ocorrencia::getOcorrenciasLidas(null, $where);
+    $obOcorrencia = Ocorrencia::getOcorrencia($where);
 
     if(empty(!$obOcorrencia)){
         header('location: index.php?page=ata&status=error');
         exit;
       }else{
-        Ocorrencia::ler($_GET['id'],$_SESSION['usuario']['id'],date('Y-m-d H:i:s'));
+        Ocorrencia::resolver($_GET['id'],"Resolvido");
     }
 
     header('location: index.php?p='. $_GET['p'] .'&status=success');

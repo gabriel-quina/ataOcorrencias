@@ -3,12 +3,14 @@
     //#composer require __DIR__. '/vendor/autoload.php'
     require __DIR__. '/app/Entity/Ocorrencia.php';
     require __DIR__. '/app/Entity/Condominio.php';
+    require __DIR__. '/app/Entity/Autorizacoes.php';
     require __DIR__. '/app/Entity/Usuario.php';
     require __DIR__. '/app/Db/Database.php';
     require __DIR__. '/app/Session/Login.php';
 
     use \App\Entity\Ocorrencia;
     use \App\Entity\Condominio;
+    use \App\Entity\Autorizacoes;
     use \App\Entity\Usuario;
     use \App\Session\Login;
 
@@ -21,6 +23,7 @@
 
     $obCondominio = Condominio::getCondominio($_GET['id']);
     $obOcorrencia = Ocorrencia::getOcorrencia($_GET['id']);
+    $obAutorizacao = Autorizacoes::getAutorizacao($_GET['id']);
     $obUsuario = Usuario::getUsuarioPorId($_GET['id']);
     
     switch ($_GET['page']) {
@@ -31,6 +34,18 @@
             }
             if(isset($_POST['excluir'])){
                 $obOcorrencia->excluir();
+        
+                header('location: index.php?page='.$_GET['page'].'&status=success');
+                exit;
+            }
+            break;
+        case 'autorizacoes':
+            if(!$obAutorizacao instanceof Autorizacoes){
+                header('location: index.php?page='.$_GET['page'].'&status=error');
+                exit;
+            }
+            if(isset($_POST['excluir'])){
+                $obAutorizacao->excluir();
         
                 header('location: index.php?page='.$_GET['page'].'&status=success');
                 exit;

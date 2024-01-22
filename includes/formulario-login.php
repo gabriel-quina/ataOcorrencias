@@ -6,9 +6,8 @@
 
 <main class="bg-light">
   <div class="text-dark p-3">
-    <div class="row">
-      <div class="col-6">
-        <form method="post">
+    <div class="d-flex flex-column flex-nowrap">
+        <form class="w-25 mx-auto" method="post">
           
           <h2>Login</h2>
           
@@ -29,9 +28,6 @@
           </div>
           
         </form>
-      </div>
-      <div class="col-6">
-      </div>      
     </div>
   </div>
 </main>

@@ -2,6 +2,7 @@
 
     //#composer require __DIR__. '/vendor/autoload.php'
     require __DIR__. '/app/Entity/Ocorrencia.php';
+    require __DIR__. '/app/Entity/Autorizacoes.php';
     require __DIR__. '/app/Entity/Condominio.php';
     require __DIR__. '/app/Entity/Usuario.php';
     require __DIR__. '/app/Db/Database.php';
@@ -11,6 +12,7 @@
 
     use \App\Entity\Ocorrencia;                                     
     use \App\Entity\Condominio;
+    use \App\Entity\Autorizacoes;
     use \App\Entity\Usuario;
     use \App\Session\Login;
 
@@ -20,7 +22,7 @@
 
     date_default_timezone_set('America/Sao_Paulo');
 
-    $condominios = Condominio::getCondominios(null, null,'nome_condominio',null);
+    $condominios = Condominio::getCondominios(null, 'faixa_ip IS NOT null','nome_condominio',null);
 
     include __DIR__. '/includes/header.php';
     switch ($_GET['page']) {
@@ -29,6 +31,8 @@
             if(isset($_POST['nome_condominio'],$_POST['cod_moni'])){
                 $obCondominio->nome_condominio = $_POST['nome_condominio'];
                 $obCondominio->cod_moni = $_POST['cod_moni'];
+                $obCondominio->faixa_ip = $_POST['faixa_ip'];
+                $obCondominio->tipoatendimento = $_POST['tipoatendimento'];
                 $obCondominio->cadastrar();
                 
                 header('location: index.php?page=condominio&status=success');
@@ -58,19 +62,46 @@
             break;
         case "ata":
             $obOcorrencia = new Ocorrencia;
-            if(isset($_POST['condominio'],$_POST['ocorrencia'],$_POST['data_inicio'],$_POST['data_fim'],$_POST['statusOcorrencia'])){
-                $obOcorrencia->condominio = $_POST['condominio'];
-                $obOcorrencia->ocorrencia = $_POST['ocorrencia'];
-                $obOcorrencia->data_inicio = $_POST['data_inicio'];
-                $obOcorrencia->data_fim = $_POST['data_fim'];
-                $obOcorrencia->status = $_POST['statusOcorrencia'];
-                $obOcorrencia->cadastrar();
+            if(isset($_POST['condominio'],$_POST['ocorrencia'],$_POST['tipo_ocorrencia'],$_POST['statusOcorrencia'])){
+                
+              $info_condominio = explode('|', $_POST['condominio']);
+                
+              $obOcorrencia->id_condominio = $info_condominio[0];
+              $obOcorrencia->condominio = $info_condominio[1];
+              $obOcorrencia->ocorrencia = $_POST['ocorrencia'];
+              $obOcorrencia->tipo_ocorrencia = $_POST['tipo_ocorrencia'];
+              $obOcorrencia->status = $_POST['statusOcorrencia'];
 
-                header('location: index.php?page=ata&status=success');
-                exit;                
+              $obOcorrencia->cadastrar();
+
+              header('location: index.php?page=ata&status=success');
+              exit;                
             }  
             include __DIR__. '/includes/formulario.php';
             break;
+        case "autorizacoes":
+          $obAutorizacao = new Autorizacoes;
+          if(isset($_POST['condominio'],$_POST['autorizacao'],$_POST['data_inicio'],$_POST['data_fim'])){
+              
+            $info_condominio = explode('|', $_POST['condominio']);
+
+            $obAutorizacao->id_condominio = $info_condominio[0];
+            $obAutorizacao->condominio = $info_condominio[1];
+            $obAutorizacao->autorizacao = $_POST['autorizacao'];
+            $obAutorizacao->data_inicio = $_POST['data_inicio'];
+            if ($_POST['data_fim'] == "") {
+                $obAutorizacao->data_fim = date('Y-m-d', strtotime('Dec 31'));
+            } else {
+                $obAutorizacao->data_fim = $_POST['data_fim'];
+            }
+
+            $obAutorizacao->cadastrar();
+
+            header('location: index.php?page=autorizacoes&status=success');
+            exit;                
+          }  
+          include __DIR__. '/includes/formulario-autorizacao.php';
+          break;
     };
     include __DIR__. '/includes/footer.php';
     
